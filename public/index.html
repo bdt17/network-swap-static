@@ -10,3 +10,14 @@
     <div id="root"></div>
   </body>
 </html>
+<script>
+  async function loadDevices() {
+    try {
+      const res = await fetch("https://network-swap-app.onrender.com/api/devices");
+      const devices = await res.json();
+      document.getElementById("network-map").innerHTML = 
+        devices.map(d => `<div class="device ${d.status}">${d.name} (${d.site})</div>`).join("");
+    } catch(e) { console.error("API fetch failed:", e); }
+  }
+  window.onload = loadDevices;
+</script>
